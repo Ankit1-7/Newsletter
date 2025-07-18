@@ -1,5 +1,7 @@
 const express = require("express")
 const app = express()
+require("dotenv").config();
+
 const bodyParser = require("body-parser")
 const axios = require("axios")
 const https=require("https")
@@ -28,12 +30,12 @@ app.post("/",function(req,res){
     }
     const jsonData = JSON.stringify(data);
     const url = "https://us9.api.mailchimp.com/3.0/lists/d654092cd7";
-    const options = {
-        method:"POST",
-        auth:"abs12:3bdc71e9470248f786d866d6507c793a-us9"
-        
 
+    const options = {
+      method: "POST",
+      auth: `anystring:${process.env.MAILCHIMP_API_KEY}`
     }
+
     const request = https.request(url,options,function(response){
         if (response.statusCode===200){
             res.sendFile(__dirname+"/success.html")
